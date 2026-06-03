@@ -1,0 +1,66 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Налаштування профілю" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'main_app/css/profile_edit.css' %}">
+{% endblock %}
+
+{% block top_bar_left %}
+    <a href="{% url 'main:main_page' %}" class="back-link" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">← {% trans "Повернутися" %}</a>
+{% endblock %}
+
+{% block content %}
+    <div class="form-card">
+        <div class="form-header">
+            <h1>{% trans "Налаштування профілю" %}</h1>
+            <p>{% trans "Оновіть свої публічні дані для відображення на головній сторінці" %}</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">{% trans "Ім'я користувача" %}</label>
+                {{ form.username }}
+                {% if form.username.errors %}<div style="color: #ef4444; font-size: 0.85rem; margin-top: 5px;">{{ form.username.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.status_text.id_for_label }}">{% trans "Статус (до 150 символів)" %}</label>
+                {{ form.status_text }}
+                <span class="helptext">{% trans "Короткий опис, який буде видно під вашим іменем." %}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.profile_image.id_for_label }}">{% trans "Фото профілю" %}</label>
+                {{ form.profile_image }}
+                {% if user.profile_image %}
+                    <span class="helptext">{% trans "Поточне фото завантажено." %}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.github_url.id_for_label }}">GitHub URL</label>
+                {{ form.github_url }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.telegram_url.id_for_label }}">Telegram URL</label>
+                {{ form.telegram_url }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.linkedin_url.id_for_label }}">LinkedIn URL</label>
+                {{ form.linkedin_url }}
+            </div>
+
+            <div class="action-buttons">
+                <a href="{% url 'main:main_page' %}" class="btn btn-cancel">{% trans "Скасувати" %}</a>
+                <button type="submit" class="btn btn-save">{% trans "Зберегти зміни" %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

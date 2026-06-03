@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YK-Flow | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{%static 'main_base/css/base.css'%}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="top-bar">
+        {% block top_bar_left %}
+            <div class="logo">YK-Flow</div>
+        {% endblock %}
+        
+        <div class="top-actions">
+            <form action="{% url 'set_language' %}" method="post" style="margin: 0;">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                <select name="language" class="lang-select" onchange="this.form.submit()">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                            {{ lang.1|upper }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+            
+            <button class="theme-btn" onclick="toggleTheme()">🌓 {% trans "Тема" %}</button>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<script>
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    function toggleTheme() {
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    }
+</script>
+
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Головна" %}{% endblock %}
+
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'main_app/css/main_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="profile-card">
+        <div class="profile-banner"></div>
+        
+        <div class="profile-content">
+            <img src="{% if author.profile_image %}{{ author.profile_image.url }}{% else %}https://via.placeholder.com/150{% endif %}" 
+                 alt="Avatar" class="avatar" onclick="openModal(this.src)">
+            
+            <div class="profile-info">
+                <h1>{{ author.username }}</h1>
+                <div class="status">{{ author.status_text|default:_("Тут буде твій статус...") }}</div>
+                
+                <div class="social-links">
+                    {% if author.github_url %}<a href="{{ author.github_url }}" target="_blank">GitHub</a>{% endif %}
+                    {% if author.telegram_url %}<a href="{{ author.telegram_url }}" target="_blank">Telegram</a>{% endif %}
+                    {% if author.linkedin_url %}<a href="{{ author.linkedin_url }}" target="_blank">LinkedIn</a>{% endif %}
+                </div>
+            </div>
+
+            {% if request.user.is_superuser %}
+            <div class="admin-controls">
+                <span class="admin-label">{% trans "Режим Автора:" %}</span>
+                <a href="{% url 'admin:index' %}"><button class="btn btn-outline">{% trans "Адмінка" %}</button></a>
+                <a href="#create_post"><button class="btn btn-filled">{% trans "+ Новий запис" %}</button></a>
+                <a href="#create_category"><button class="btn btn-outline">{% trans "+ Категорія" %}</button></a>
+                <a href="{% url 'main:profile_edit' %}"><button class="btn btn-outline">{% trans "Профіль" %}</button></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="categories">
+        <div class="cat-pill active">{% trans "Усі записи" %}</div>
+        {% for category in categories %}
+            <div class="cat-pill">{{ category.name }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="feed">
+        {% for post in posts %}
+        <article class="post-card">
+            <h2 class="post-title"><a href="#detail_route">{{ post.title }}</a></h2>
+            <div class="post-meta">
+                <span>{{ post.created_at|date:"d M Y" }}</span> 
+                <span class="cat-tag">{{ post.category.name|default:_("Без категорії") }}</span>
+            </div>
+            
+            <div class="markdown-content" style="display: none;">{{ post.content }}</div>
+            <div class="rendered-content"></div>
+
+            {% if post.images.all %}
+                <div class="gallery">
+                    {% for img in post.images.all %}
+                        <img src="{{ img.image.url }}" onclick="openModal(this.src)">
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if request.user.is_superuser %}
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--border); display: flex; gap: 10px;">
+                <a href="#edit"><button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;">{% trans "Редагувати" %}</button></a>
+                <a href="#delete"><button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem; color: #ef4444; border-color: #ef4444;">{% trans "Видалити" %}</button></a>
+            </div>
+            {% endif %}
+        </article>
+        {% empty %}
+            <div class="post-card" style="text-align: center; color: var(--text-muted); padding: 50px;">
+                <h3>{% trans "Записів поки немає." %}</h3>
+                <p>{% trans "Повертайтеся трохи пізніше!" %}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal" id="imageModal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImg" src="">
+        
+        <div class="zoom-controls">
+            <button class="zoom-btn" onclick="zoomImage(1.2)">+</button>
+            <button class="zoom-btn" onclick="zoomImage(0.8)">-</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'main_app/js/main_page.js' %}"></script>
+{% endblock %}

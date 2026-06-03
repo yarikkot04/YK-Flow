@@ -8,6 +8,7 @@ def define_upload_image_path(instance, filename):
     return f'profile_image/{instance.username}/{date_path}/{filename}'
 
 class CustomUser(AbstractUser):
+    status_text = models.CharField(max_length=150, blank=True, null=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True) 
     slug = models.SlugField(unique=True, blank=True, max_length=150) 
     profile_image = models.ImageField(upload_to=define_upload_image_path, null=True, blank=True)
