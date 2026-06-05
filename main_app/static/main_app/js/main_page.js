@@ -62,7 +62,60 @@ if (modalImg) {
     window.addEventListener('mouseup', () => { panning = false; });
 }
 
+function filterPosts(categoryId, element) {
+    document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
+    element.classList.add('active');
+
+    let visibleCount = 0;
+
+    document.querySelectorAll('article.post-card[data-category]').forEach(card => {
+        if (categoryId === 'all' || card.dataset.category === categoryId.toString()) {
+            card.style.display = 'block';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    const jsEmptyMessage = document.getElementById('js-empty-message');
+    const djangoEmpty = document.querySelector('.django-empty');
+    
+    if (jsEmptyMessage && !djangoEmpty) {
+        if (visibleCount === 0) {
+            jsEmptyMessage.style.display = 'block';
+        } else {
+            jsEmptyMessage.style.display = 'none';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('article.post-card').forEach(card => {
+        const rawContentNode = card.querySelector('.markdown-content');
+        const excerptNode = card.querySelector('.post-excerpt');
+        
+        if (rawContentNode && excerptNode) {
+            let rawText = rawContentNode.textContent;
+            
+            rawText = rawText.replace(/\{(new_)?img\d+\}/g, '');
+            
+            rawText = rawText.replace(/```[\s\S]*?```/g, '');
+            
+            let html = marked.parse(rawText);
+            
+            let tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            let cleanText = tempDiv.textContent || tempDiv.innerText || "";
+            
+            cleanText = cleanText.trim();
+            if (cleanText.length > 200) {
+                cleanText = cleanText.substring(0, 200) + '...';
+            }
+            
+            excerptNode.textContent = cleanText;
+        }
+    });
+
     if (typeof marked !== 'undefined') {
         marked.setOptions({
             highlight: function(code, lang) {

@@ -1,0 +1,39 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Нова категорія" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'main_app/css/profile_edit.css' %}">
+{% endblock %}
+
+{% block top_bar_left %}
+    <a href="{% url 'main:main_page' %}" class="back-link">← {% trans "Повернутися" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px; margin-top: 50px;">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>{% trans "Створити категорію" %}</h1>
+            <p>{% trans "Додайте нову категорію для сортування ваших постів." %}</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{{ form.name.label }}</label>
+                {{ form.name }}
+                {% if form.name.errors %}<div style="color: #ef4444; font-size: 0.85rem; margin-top: 5px;">{{ form.name.errors }}</div>{% endif %}
+            </div>
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-save" style="width: 100%;">{% trans "Додати" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'main_app/js/profile_edit.js' %}"></script>
+{% endblock %}
