@@ -9,17 +9,21 @@
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'main_app/css/profile_edit.css' %}">
     <link rel="stylesheet" href="{% static 'main_app/css/post_form.css' %}">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 {% endblock %}
 
 {% block top_bar_left %}
-    <a href="{% url 'main:main_page' %}" class="back-link">← {% trans "Повернутися" %}</a>
+    <a href="javascript:history.back()" class="back-link">← {% trans "Повернутися" %}</a>
 {% endblock %}
 
 {% block content %}
 <div class="container" style="max-width: 750px; margin-top: 30px;">
-    <div class="form-card">
+    <div class="form-card" style="max-width: 100%; box-sizing: border-box; overflow: hidden;">
         <div class="form-header">
-            <h1>{% if object %}✏️ {% trans "Редагувати запис" %}{% else %}{% trans "Створити новий запис" %}{% endif %}</h1>
+            <h1>{% if object %}{% trans "Редагувати запис" %}{% else %}{% trans "Створити новий запис" %}{% endif %}</h1>
         </div>
 
         <form method="post" enctype="multipart/form-data" id="post-form" data-is-editing="{% if object %}true{% else %}false{% endif %}" novalidate>
@@ -55,21 +59,26 @@
                 {{ form.content }}
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="max-width: 100%; box-sizing: border-box;">
                 <label>{% trans "Конструктор публікації" %}</label>
                 
-                <div id="block-editor" class="block-editor">
-                </div>
+                <div id="block-editor" class="block-editor"></div>
 
                 <div class="add-block-menu">
                     <button type="button" class="add-block-btn" onclick="addBlock('text')">Текст</button>
                     <button type="button" class="add-block-btn" onclick="addBlock('code')">Код</button>
                     <button type="button" class="add-block-btn" onclick="addBlock('image')">Фото</button>
                 </div>
+
+                <div id="preview-container" class="rendered-content" style="display: none; padding: 20px; border: 2px dashed var(--royal-purple); border-radius: 12px; margin-top: 15px; background: var(--bg-main); width: 100%; box-sizing: border-box; overflow-x: hidden;"></div>
+                
+                <button type="button" id="preview-toggle-btn" class="btn btn-outline" onclick="togglePreview()" style="width: 100%; margin-top: 15px; padding: 10px;">
+                    {% trans "Попередній перегляд" %}
+                </button>
             </div>
 
             <div class="action-buttons" style="margin-top: 30px;">
-                <a href="{% url 'main:main_page' %}" class="btn btn-cancel">{% trans "Скасувати" %}</a>
+                <a href="javascript:history.back()" class="btn btn-cancel">{% trans "Скасувати" %}</a>
                 <button type="submit" class="btn btn-save">
                     {% if object %}{% trans "Оновити публікацію" %}{% else %}{% trans "Зберегти публікацію" %}{% endif %}
                 </button>
@@ -80,6 +89,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-    <script src="{% static 'main_app/js/post_form.js' %}"></script>
-    <script></script>
+<script src="{%static 'main_app/js/post_form.js'%}"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView, DetailView
 from .models import Post, Category, PostImage
 from .mixins import AdminRequiredMixin
 from .forms import PostForm, CategoryForm
@@ -77,3 +77,9 @@ class PostDeleteView(AdminRequiredMixin, DeleteView):
     slug_url_kwarg = 'slug'
     success_url = reverse_lazy('main:main_page')
     template_name = 'main_app/post_confirm_delete.html'
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'main_app/post_detail.html'
+    context_object_name = 'post'
+    slug_url_kwarg = 'slug'

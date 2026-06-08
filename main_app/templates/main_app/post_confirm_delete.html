@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block top_bar_left %}
-    <a href="{% url 'main:main_page' %}" class="back-link">← {% trans "Повернутися" %}</a>
+    <a href="javascript:history.back()" class="back-link">← {% trans "Повернутися" %}</a>
 {% endblock %}
 
 {% block content %}
@@ -30,7 +30,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="action-buttons" style="justify-content: center; gap: 20px;">
-                <a href="{% url 'main:main_page' %}" class="btn btn-cancel" style="width: 45%;">{% trans "Скасувати" %}</a>
+                <a href="javascript:history.back()" class="btn btn-cancel" style="width: 45%;">{% trans "Скасувати" %}</a>
                 <button type="submit" class="btn" style="width: 45%; background: #ef4444; color: white; border: none;">{% trans "Так, видалити" %}</button>
             </div>
         </form>

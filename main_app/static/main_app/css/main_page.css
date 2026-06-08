@@ -169,6 +169,9 @@
   margin-bottom: 25px;
   transition: all 0.3s;
   box-shadow: var(--shadow-sm);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .post-card:hover {
@@ -360,6 +363,9 @@ code {
   line-height: 1.6;
   font-size: 1.05rem;
   opacity: 0.9;
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .read-more-btn {

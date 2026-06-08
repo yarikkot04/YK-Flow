@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let cleanText = tempDiv.textContent || tempDiv.innerText || "";
             
             cleanText = cleanText.trim();
-            if (cleanText.length > 200) {
-                cleanText = cleanText.substring(0, 200) + '...';
+            if (cleanText.length > 100) {
+                cleanText = cleanText.substring(0, 100) + '...';
             }
             
             excerptNode.textContent = cleanText;

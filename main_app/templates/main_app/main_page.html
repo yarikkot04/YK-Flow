@@ -51,11 +51,11 @@
         {% for post in posts %}
         <article class="post-card" data-category="{{ post.category.id|default:'none' }}">
             <h2 class="post-title">
-                <a href="#post_{{ post.slug }}">{{ post.title }}</a>
+                <a href="{% url 'main:post_detail' post.slug %}">{{ post.title }}</a>
             </h2>
             
             <div class="post-meta">
-                <span>🗓️ {{ post.created_at|date:"d M Y" }}</span> 
+                <span>{{ post.created_at|date:"d M Y" }}</span> 
                 <span class="cat-tag">🏷️ {{ post.category.name|default:_("Без категорії") }}</span>
             </div>
             
@@ -69,7 +69,7 @@
             
             <div class="post-excerpt"></div>
 
-            <a href="#post_{{ post.slug }}" class="read-more-btn">{% trans "Читати більше" %} →</a>
+            <a href="{% url 'main:post_detail' post.slug %}" class="read-more-btn">{% trans "Читати більше" %} →</a>
 
             {% if request.user.is_superuser %}
             <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--border); display: flex; gap: 10px;">
