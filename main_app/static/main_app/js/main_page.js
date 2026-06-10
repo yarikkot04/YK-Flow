@@ -62,33 +62,6 @@ if (modalImg) {
     window.addEventListener('mouseup', () => { panning = false; });
 }
 
-function filterPosts(categoryId, element) {
-    document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
-    element.classList.add('active');
-
-    let visibleCount = 0;
-
-    document.querySelectorAll('article.post-card[data-category]').forEach(card => {
-        if (categoryId === 'all' || card.dataset.category === categoryId.toString()) {
-            card.style.display = 'block';
-            visibleCount++;
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-    const jsEmptyMessage = document.getElementById('js-empty-message');
-    const djangoEmpty = document.querySelector('.django-empty');
-    
-    if (jsEmptyMessage && !djangoEmpty) {
-        if (visibleCount === 0) {
-            jsEmptyMessage.style.display = 'block';
-        } else {
-            jsEmptyMessage.style.display = 'none';
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('article.post-card').forEach(card => {
         const rawContentNode = card.querySelector('.markdown-content');
@@ -98,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let rawText = rawContentNode.textContent;
             
             rawText = rawText.replace(/\{(new_)?img\d+\}/g, '');
-            
             rawText = rawText.replace(/```[\s\S]*?```/g, '');
             
             let html = marked.parse(rawText);
@@ -125,10 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.querySelectorAll('.post-card').forEach(card => {
+            const renderedNode = card.querySelector('.rendered-content');
             const rawContentNode = card.querySelector('.markdown-content');
-            if(rawContentNode) {
+            if(renderedNode && rawContentNode) {
                 const rawContent = rawContentNode.textContent;
-                card.querySelector('.rendered-content').innerHTML = marked.parse(rawContent);
+                renderedNode.innerHTML = marked.parse(rawContent);
             }
         });
     }

@@ -41,15 +41,15 @@
     </div>
 
     <div class="categories">
-        <div class="cat-pill active" onclick="filterPosts('all', this)">{% trans "Усі записи" %}</div>
+        <a href="?category=all" class="cat-pill {% if current_category == 'all' or not current_category %}active{% endif %}">{% trans "Усі записи" %}</a>
         {% for category in categories %}
-            <div class="cat-pill" onclick="filterPosts('{{ category.id }}', this)">{{ category.name }}</div>
+            <a href="?category={{ category.id }}" class="cat-pill {% if current_category == category.id|stringformat:'s' %}active{% endif %}">{{ category.name }}</a>
         {% endfor %}
     </div>
 
     <div class="feed">
         {% for post in posts %}
-        <article class="post-card" data-category="{{ post.category.id|default:'none' }}">
+        <article class="post-card">
             <h2 class="post-title">
                 <a href="{% url 'main:post_detail' post.slug %}">{{ post.title }}</a>
             </h2>
@@ -84,15 +84,31 @@
         </article>
         {% empty %}
             <div class="post-card django-empty" style="text-align: center; color: var(--text-muted); padding: 50px;">
-                <h3>{% trans "Записів поки немає." %}</h3>
-                <p>{% trans "Повертайтеся трохи пізніше!" %}</p>
+                {% if current_category != 'all' %}
+                    <h3>{% trans "У цій категорії поки немає записів." %}</h3>
+                    <p>{% trans "Оберіть іншу категорію або створіть новий запис!" %}</p>
+                {% else %}
+                    <h3>{% trans "Записів поки немає." %}</h3>
+                    <p>{% trans "Повертайтеся трохи пізніше!" %}</p>
+                {% endif %}
             </div>
         {% endfor %}
         
-        <div id="js-empty-message" class="post-card" style="display: none; text-align: center; color: var(--text-muted); padding: 50px;">
-            <h3>{% trans "У цій категорії поки немає записів." %}</h3>
-            <p>{% trans "Оберіть іншу категорію або створіть новий запис!" %}</p>
+        {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="page-link">← {% trans "Попередня" %}</a>
+            {% endif %}
+
+            <span class="current-page">
+                {% trans "Сторінка" %} {{ page_obj.number }} {% trans "з" %} {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="page-link">{% trans "Наступна" %} →</a>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <div class="modal" id="imageModal">

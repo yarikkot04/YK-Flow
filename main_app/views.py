@@ -11,12 +11,22 @@ class MainPageView(ListView):
     model = Post
     template_name = 'main_app/main_page.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = Post.objects.all().order_by('-created_at')
+        
+        category_id = self.request.GET.get('category')
+        if category_id and category_id != 'all':
+            queryset = queryset.filter(category_id=category_id)
+            
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['author'] = CustomUser.objects.filter(is_superuser=True).first()
         context['categories'] = Category.objects.all()
+        context['current_category'] = self.request.GET.get('category', 'all')
         return context
     
 class ProfileUpdateView(AdminRequiredMixin, UpdateView):

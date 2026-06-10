@@ -385,3 +385,45 @@ code {
   transform: translateX(3px);
   box-shadow: 0 4px 10px rgba(120, 81, 169, 0.3);
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.page-link {
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.page-link:hover {
+  border-color: var(--royal-purple);
+  color: var(--royal-purple);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.current-page {
+  padding: 10px 20px;
+  background: var(--purple-light);
+  color: var(--royal-purple);
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(120, 81, 169, 0.3);
+}
+
+a.cat-pill {
+  text-decoration: none;
+  display: inline-block;
+}
