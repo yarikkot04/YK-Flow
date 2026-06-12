@@ -57,8 +57,16 @@ class PostCreateView(AdminRequiredMixin, CreateView):
             response = super().form_valid(form)
             
             images = self.request.FILES.getlist('images')
-            for img in images:
-                PostImage.objects.create(post=self.object, image=img)
+            content = self.object.content
+            
+            for i, img in enumerate(images, start=1):
+                post_img = PostImage.objects.create(post=self.object, image=img)
+                placeholder = f'{{img{i}}}'
+                content = content.replace(placeholder, f"![Зображення]({post_img.image.url})")
+                
+            if images:
+                self.object.content = content
+                self.object.save()
                 
         return response
     
@@ -74,11 +82,20 @@ class PostUpdateView(AdminRequiredMixin, UpdateView):
             response = super().form_valid(form)
             
             images = self.request.FILES.getlist('images')
-            if images:
-                self.object.images.all().delete() 
+            content = self.object.content
+            
+            for i, img in enumerate(images, start=1):
+                post_img = PostImage.objects.create(post=self.object, image=img)
+                placeholder = f'{{new_img{i}}}'
+                content = content.replace(placeholder, f"![Зображення]({post_img.image.url})")
                 
-                for img in images:
-                    PostImage.objects.create(post=self.object, image=img)
+            if images:
+                self.object.content = content
+                self.object.save()
+            
+            for post_img in self.object.images.all():
+                if post_img.image and post_img.image.url not in self.object.content:
+                    post_img.delete()
                     
         return response
 

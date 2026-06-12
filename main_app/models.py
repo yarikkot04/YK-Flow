@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+import os
 import uuid
 
 from auth_app.models import CustomUser
@@ -66,3 +69,16 @@ class PostImage(models.Model):
     
     def __str__(self):
         return f"Image for {self.post.title}"
+    
+@receiver(post_delete, sender=PostImage)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.image:
+        folder_path = os.path.dirname(instance.image.path)
+        
+        instance.image.delete(save=False)
+        
+        try:
+            if not os.listdir(folder_path):
+                os.rmdir(folder_path)
+        except OSError:
+            pass
