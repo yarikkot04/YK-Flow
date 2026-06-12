@@ -65,9 +65,9 @@
                 <div id="block-editor" class="block-editor"></div>
 
                 <div class="add-block-menu">
-                    <button type="button" class="add-block-btn" onclick="addBlock('text')">Текст</button>
-                    <button type="button" class="add-block-btn" onclick="addBlock('code')">Код</button>
-                    <button type="button" class="add-block-btn" onclick="addBlock('image')">Фото</button>
+                    <button type="button" class="add-block-btn" onclick="addBlock('text')">{% trans "Текст" %}</button>
+                    <button type="button" class="add-block-btn" onclick="addBlock('code')">{% trans "Код" %}</button>
+                    <button type="button" class="add-block-btn" onclick="addBlock('image')">{% trans "Фото" %} </button>
                 </div>
 
                 <div id="preview-container" class="rendered-content" style="display: none; padding: 20px; border: 2px dashed var(--royal-purple); border-radius: 12px; margin-top: 15px; background: var(--bg-main); width: 100%; box-sizing: border-box; overflow-x: hidden;"></div>
@@ -89,5 +89,6 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="{% url 'javascript-catalog' %}"></script>
 <script src="{%static 'main_app/js/post_form.js'%}"></script>
 {% endblock %}

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          .replace(/[^\p{L}\p{N}]+/gu, '-')
                          .replace(/^-|-$/g, '');
                          
-        return `<h${depth} id="${slug}"><a href="#${slug}" class="heading-anchor" title="Посилання на цей заголовок">${text} <span class="anchor-icon">#</span></a></h${depth}>`;
+        return `<h${depth} id="${slug}"><a href="#${slug}" class="heading-anchor" title="${gettext('Посилання на цей заголовок')}">${text} <span class="anchor-icon">#</span></a></h${depth}>`;
     };
 
     marked.setOptions({
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     rawContent = rawContent.replace(imgRegex, (match, isNew, index) => {
         if (imageUrls[index]) {
-            return `![Зображення](${imageUrls[index]})`;
+            return `![${gettext('Зображення')}](${imageUrls[index]})`;
         }
         return ''; 
     });
