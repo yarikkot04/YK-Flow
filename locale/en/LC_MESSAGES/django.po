@@ -1,0 +1,286 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-12 00:47+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: main_app/templates/main_app/category_form.html:5
+msgid "Нова категорія"
+msgstr "New category"
+
+#: main_app/templates/main_app/category_form.html:12
+#: main_app/templates/main_app/post_confirm_delete.html:12
+#: main_app/templates/main_app/post_form.html:19
+#: main_app/templates/main_app/profile_edit.html:12
+msgid "Повернутися"
+msgstr "Go back"
+
+#: main_app/templates/main_app/category_form.html:19
+msgid "Створити категорію"
+msgstr "Create category"
+
+#: main_app/templates/main_app/category_form.html:20
+msgid "Додайте нову категорію для сортування ваших постів."
+msgstr "Add a new category to sort your posts."
+
+#: main_app/templates/main_app/category_form.html:30
+msgid "Додати"
+msgstr "Add"
+
+#: main_app/templates/main_app/main_page.html:5
+msgid "Головна"
+msgstr "Home"
+
+#: main_app/templates/main_app/main_page.html:22
+msgid "Тут буде твій статус..."
+msgstr "Your status will be here..."
+
+#: main_app/templates/main_app/main_page.html:33
+msgid "Режим Автора:"
+msgstr "Author Mode:"
+
+#: main_app/templates/main_app/main_page.html:34
+msgid "Адмінка"
+msgstr "Admin panel"
+
+#: main_app/templates/main_app/main_page.html:35
+msgid "+ Новий запис"
+msgstr "+ New post"
+
+#: main_app/templates/main_app/main_page.html:36
+msgid "+ Категорія"
+msgstr "+ Category"
+
+#: main_app/templates/main_app/main_page.html:37
+msgid "Профіль"
+msgstr "Profile"
+
+#: main_app/templates/main_app/main_page.html:44
+msgid "Усі записи"
+msgstr "All posts"
+
+#: main_app/templates/main_app/main_page.html:59
+#: main_app/templates/main_app/post_detail.html:25
+msgid "Без категорії"
+msgstr "Uncategorized"
+
+#: main_app/templates/main_app/main_page.html:72
+msgid "Читати більше"
+msgstr "Read more"
+
+#: main_app/templates/main_app/main_page.html:77
+#: main_app/templates/main_app/post_detail.html:29
+msgid "Редагувати"
+msgstr "Edit"
+
+#: main_app/templates/main_app/main_page.html:78
+#: main_app/templates/main_app/post_detail.html:30
+msgid "Видалити"
+msgstr "Delete"
+
+#: main_app/templates/main_app/main_page.html:80
+msgid "Помилка слага (пустий)"
+msgstr "Slug error (empty)"
+
+#: main_app/templates/main_app/main_page.html:88
+msgid "У цій категорії поки немає записів."
+msgstr "There are no posts in this category yet."
+
+#: main_app/templates/main_app/main_page.html:89
+msgid "Оберіть іншу категорію або створіть новий запис!"
+msgstr "Choose another category or create a new post!"
+
+#: main_app/templates/main_app/main_page.html:91
+msgid "Записів поки немає."
+msgstr "No posts yet."
+
+#: main_app/templates/main_app/main_page.html:92
+msgid "Повертайтеся трохи пізніше!"
+msgstr "Come back a little later!"
+
+#: main_app/templates/main_app/main_page.html:100
+msgid "Попередня"
+msgstr "Previous"
+
+#: main_app/templates/main_app/main_page.html:104
+msgid "Сторінка"
+msgstr "Page"
+
+#: main_app/templates/main_app/main_page.html:104
+msgid "з"
+msgstr "of"
+
+#: main_app/templates/main_app/main_page.html:108
+msgid "Наступна"
+msgstr "Next"
+
+#: main_app/templates/main_app/post_confirm_delete.html:5
+#: main_app/templates/main_app/post_confirm_delete.html:19
+msgid "Видалення запису"
+msgstr "Delete post"
+
+#: main_app/templates/main_app/post_confirm_delete.html:23
+msgid "Ви впевнені, що хочете назавжди видалити запис"
+msgstr "Are you sure you want to permanently delete the post"
+
+#: main_app/templates/main_app/post_confirm_delete.html:26
+msgid ""
+"Цю дію неможливо буде скасувати. Всі фотографії, прикріплені до посту, також "
+"будуть видалені."
+msgstr ""
+"This action cannot be undone. All photos attached to the post will also be "
+"deleted."
+
+#: main_app/templates/main_app/post_confirm_delete.html:33
+#: main_app/templates/main_app/post_form.html:81
+#: main_app/templates/main_app/profile_edit.html:61
+msgid "Скасувати"
+msgstr "Cancel"
+
+#: main_app/templates/main_app/post_confirm_delete.html:34
+msgid "Так, видалити"
+msgstr "Yes, delete"
+
+#: main_app/templates/main_app/post_detail.html:15
+msgid "Повернутися на головну"
+msgstr "Return to home"
+
+#: main_app/templates/main_app/post_form.html:6
+#: main_app/templates/main_app/post_form.html:26
+msgid "Редагувати запис"
+msgstr "Edit post"
+
+#: main_app/templates/main_app/post_form.html:6
+msgid "Новий запис"
+msgstr "New post"
+
+#: main_app/templates/main_app/post_form.html:26
+msgid "Створити новий запис"
+msgstr "Create a new post"
+
+#: main_app/templates/main_app/post_form.html:34
+msgid "Увага! Форма містить помилки:"
+msgstr "Attention! The form contains errors:"
+
+#: main_app/templates/main_app/post_form.html:63
+msgid "Конструктор публікації"
+msgstr "Post builder"
+
+#: main_app/templates/main_app/post_form.html:68
+msgid "Текст"
+msgstr "Text"
+
+#: main_app/templates/main_app/post_form.html:69
+msgid "Код"
+msgstr "Code"
+
+#: main_app/templates/main_app/post_form.html:70
+msgid "Фото"
+msgstr "Photo"
+
+#: main_app/templates/main_app/post_form.html:76
+msgid "Попередній перегляд"
+msgstr "Preview"
+
+#: main_app/templates/main_app/post_form.html:83
+msgid "Оновити публікацію"
+msgstr "Update post"
+
+#: main_app/templates/main_app/post_form.html:83
+msgid "Зберегти публікацію"
+msgstr "Save post"
+
+#: main_app/templates/main_app/profile_edit.html:5
+#: main_app/templates/main_app/profile_edit.html:18
+msgid "Налаштування профілю"
+msgstr "Profile settings"
+
+#: main_app/templates/main_app/profile_edit.html:19
+msgid "Оновіть свої публічні дані для відображення на головній сторінці"
+msgstr "Update your public details to display on the home page"
+
+#: main_app/templates/main_app/profile_edit.html:26
+msgid "Ім'я користувача"
+msgstr "Username"
+
+#: main_app/templates/main_app/profile_edit.html:32
+msgid "Статус (до 150 символів)"
+msgstr "Status (up to 150 characters)"
+
+#: main_app/templates/main_app/profile_edit.html:34
+msgid "Короткий опис, який буде видно під вашим іменем."
+msgstr "A short description that will be visible under your name."
+
+#: main_app/templates/main_app/profile_edit.html:38
+msgid "Фото профілю"
+msgstr "Profile photo"
+
+#: main_app/templates/main_app/profile_edit.html:41
+msgid "Поточне фото завантажено."
+msgstr "Current photo uploaded."
+
+#: main_app/templates/main_app/profile_edit.html:62
+msgid "Зберегти зміни"
+msgstr "Save changes"
+
+#: templates/403.html:4
+msgid "Доступ заборонено"
+msgstr "Access denied"
+
+#: templates/403.html:27
+msgid "Доступ обмежено!"
+msgstr "Access is restricted!"
+
+#: templates/403.html:31
+msgid "У вас немає прав для перегляду цієї сторінки або виконання цієї дії."
+msgstr "You do not have permission to view this page or perform this action."
+
+#: templates/403.html:41 templates/404.html:41 templates/500.html:41
+msgid "На головну сторінку"
+msgstr "Back to home page"
+
+#: templates/404.html:4
+msgid "Сторінку не знайдено"
+msgstr "Page not found"
+
+#: templates/404.html:27
+msgid "Ой! Здається, ви загубилися."
+msgstr "Oops! It seems you are lost."
+
+#: templates/404.html:31
+msgid "Сторінка, яку ви шукаєте, не існує, була видалена або її назву змінено."
+msgstr "The page you are looking for does not exist, has been deleted, or its name has been changed."
+
+#: templates/500.html:4
+msgid "Внутрішня помилка сервера"
+msgstr "Internal server error"
+
+#: templates/500.html:27
+msgid "Щось пішло не так..."
+msgstr "Something went wrong..."
+
+#: templates/500.html:31
+msgid ""
+"На сервері сталася внутрішня помилка. Ми вже знаємо про неї та активно "
+"працюємо над її вирішенням. Будь ласка, спробуйте пізніше."
+msgstr ""
+"An internal server error occurred. We are already aware of it and are actively "
+"working to resolve it. Please try again later."
+
+#: templates/main_base.html:36
+msgid "Тема"
+msgstr "Theme"

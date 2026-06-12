@@ -1,0 +1,62 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="{%static 'main_app/css/post_detail.css'%}">
+{% endblock %}
+
+{% block top_bar_left %}
+    <a href="{% url 'main:main_page' %}" class="back-link">← {% trans "Повернутися на головну" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 850px; margin-top: 20px;">
+    <article class="post-detail-card">
+        <div class="post-header">
+            <h1>{{ post.title }}</h1>
+            <div class="post-meta">
+                <span>{{ post.created_at|date:"d M Y" }}</span>
+                <span class="cat-tag">🏷️ {{ post.category.name|default:_("Без категорії") }}</span>
+            </div>
+            {% if request.user.is_superuser %}
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                <a href="{% url 'main:post_edit' post.slug %}"><button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;">{% trans "Редагувати" %}</button></a>
+                <a href="{% url 'main:post_delete' post.slug %}"><button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem; color: #ef4444; border-color: #ef4444;">{% trans "Видалити" %}</button></a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="raw-content" style="display: none;">{{ post.content }}</div>
+
+        <div id="image-data" style="display: none;">
+            {% for img in post.images.all %}
+                <span data-index="{{ forloop.counter }}" data-url="{{ img.image.url }}"></span>
+            {% endfor %}
+        </div>
+
+        <div class="rendered-content" id="rendered-content">
+        </div>
+    </article>
+</div>
+
+<div class="modal" id="imageModal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <img id="modalImg" src="">
+    
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomImage(1.2)">+</button>
+        <button class="zoom-btn" onclick="zoomImage(0.8)">-</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'main_app/js/main_page.js' %}"></script>
+    <script src="{% static 'main_app/js/post_detail.js' %}"></script>
+{% endblock %}

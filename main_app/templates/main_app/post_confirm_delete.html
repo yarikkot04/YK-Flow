@@ -1,0 +1,39 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Видалення запису" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'main_app/css/profile_edit.css' %}">
+{% endblock %}
+
+{% block top_bar_left %}
+    <a href="javascript:history.back()" class="back-link">← {% trans "Повернутися" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 550px; margin-top: 50px;">
+    <div class="form-card" style="text-align: center; border: 1px solid rgba(239, 68, 68, 0.5); box-shadow: 0 10px 25px rgba(239, 68, 68, 0.1);">
+        <div class="form-header">
+            <h1 style="color: #ef4444; font-size: 2rem; margin-bottom: 10px;">{% trans "Видалення запису" %}</h1>
+        </div>
+
+        <div style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6; color: var(--text-main);">
+            {% trans "Ви впевнені, що хочете назавжди видалити запис" %}<br>
+            <strong style="color: var(--royal-purple); font-size: 1.2rem;">«{{ object.title }}»</strong>?<br>
+            <span style="color: var(--text-muted); font-size: 0.9rem; display: block; margin-top: 10px;">
+                {% trans "Цю дію неможливо буде скасувати. Всі фотографії, прикріплені до посту, також будуть видалені." %}
+            </span>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="action-buttons" style="justify-content: center; gap: 20px;">
+                <a href="javascript:history.back()" class="btn btn-cancel" style="width: 45%;">{% trans "Скасувати" %}</a>
+                <button type="submit" class="btn" style="width: 45%; background: #ef4444; color: white; border: none;">{% trans "Так, видалити" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'main_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% if object %}{% trans "Редагувати запис" %}{% else %}{% trans "Новий запис" %}{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'main_app/css/profile_edit.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/post_form.css' %}">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+{% endblock %}
+
+{% block top_bar_left %}
+    <a href="javascript:history.back()" class="back-link">← {% trans "Повернутися" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 750px; margin-top: 30px;">
+    <div class="form-card" style="max-width: 100%; box-sizing: border-box; overflow: hidden;">
+        <div class="form-header">
+            <h1>{% if object %}{% trans "Редагувати запис" %}{% else %}{% trans "Створити новий запис" %}{% endif %}</h1>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" id="post-form" data-is-editing="{% if object %}true{% else %}false{% endif %}" novalidate>
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; color: #ef4444;">
+                    <strong>{% trans "Увага! Форма містить помилки:" %}</strong>
+                    <ul style="margin-top: 10px; margin-bottom: 0; padding-left: 20px;">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label>{{ form.title.label }}</label>
+                {{ form.title }}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.category.label }}</label>
+                {{ form.category }}
+            </div>
+
+            <div class="form-group" style="display: none;">
+                {{ form.content }}
+            </div>
+
+            <div class="form-group" style="max-width: 100%; box-sizing: border-box;">
+                <label>{% trans "Конструктор публікації" %}</label>
+                
+                <div id="block-editor" class="block-editor"></div>
+
+                <div class="add-block-menu">
+                    <button type="button" class="add-block-btn" onclick="addBlock('text')">{% trans "Текст" %}</button>
+                    <button type="button" class="add-block-btn" onclick="addBlock('code')">{% trans "Код" %}</button>
+                    <button type="button" class="add-block-btn" onclick="addBlock('image')">{% trans "Фото" %} </button>
+                </div>
+
+                <div id="preview-container" class="rendered-content" style="display: none; padding: 20px; border: 2px dashed var(--royal-purple); border-radius: 12px; margin-top: 15px; background: var(--bg-main); width: 100%; box-sizing: border-box; overflow-x: hidden;"></div>
+                
+                <button type="button" id="preview-toggle-btn" class="btn btn-outline" onclick="togglePreview()" style="width: 100%; margin-top: 15px; padding: 10px;">
+                    {% trans "Попередній перегляд" %}
+                </button>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 30px;">
+                <a href="javascript:history.back()" class="btn btn-cancel">{% trans "Скасувати" %}</a>
+                <button type="submit" class="btn btn-save">
+                    {% if object %}{% trans "Оновити публікацію" %}{% else %}{% trans "Зберегти публікацію" %}{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% url 'javascript-catalog' %}"></script>
+<script src="{%static 'main_app/js/post_form.js'%}"></script>
+{% endblock %}
